@@ -1,0 +1,47 @@
+Week 1
+#3
+      SELECT COUNT(yellow_taxi_data."VendorID") COUNT_TOTAL 
+      FROM PUBLIC.YELLOW_TAXI_DATA
+      where CAST(TPEP_PICKUP_DATETIME AS date) ='2021-01-15';
+#4
+      SELECT CAST(TPEP_PICKUP_DATETIME AS date) DATEOFPICKUP,
+        MAX(YELLOW_TAXI_DATA.TIP_AMOUNT) MAX_TIP
+      FROM PUBLIC.YELLOW_TAXI_DATA
+      WHERE EXTRACT (MONTH FROM TPEP_PICKUP_DATETIME) = '01'
+      GROUP BY CAST(TPEP_PICKUP_DATETIME AS date)
+      ORDER BY MAX(YELLOW_TAXI_DATA.TIP_AMOUNT) DESC;
+      
+#5
+
+      SELECT "LocationID",
+        "PULocationID",
+        "DOLocationID",
+        Z."Zone",
+        COUNT(PASSENGER_COUNT)
+      FROM PUBLIC.ZONES AS Z
+      INNER JOIN PUBLIC.YELLOW_TAXI_DATA AS Y ON Z."LocationID" = Y."PULocationID"
+      AND Z."LocationID" = Y."DOLocationID"
+      WHERE CAST(TPEP_PICKUP_DATETIME AS date) = '2021-01-14'
+        AND Z."Borough" = 'central park'
+      GROUP BY "LocationID",
+        "PULocationID",
+        "DOLocationID",
+        Z."Zone"
+      ORDER BY COUNT(PASSENGER_COUNT) DESC;
+#6
+
+        SELECT 
+          "LocationID",
+          "PULocationID",
+          "DOLocationID",
+          concat(z."Borough" , z."Zone") as Pair,
+          Avg(TOTAL_AMOUNT) Average
+        FROM PUBLIC.ZONES as Z
+        Inner JOIN public.yellow_taxi_data as Y
+        ON z."LocationID"=y."PULocationID"
+        and z."LocationID"=y."DOLocationID" 
+        group by "LocationID",
+          "PULocationID",
+          "DOLocationID",
+          CONCAT(z."Borough" , z."Zone")
+        order by Avg(TOTAL_AMOUNT) desc;
