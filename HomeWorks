@@ -1,4 +1,4 @@
-Week 1
+                                                      '''WEEK 1
 #3
       SELECT COUNT(yellow_taxi_data."VendorID") COUNT_TOTAL 
       FROM PUBLIC.YELLOW_TAXI_DATA
