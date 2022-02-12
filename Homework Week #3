@@ -1,0 +1,7 @@
+1.  SELECT count(*) from trips_data_all.FVH_tripdata_external_table
+2.  SELECT Count (distinct dispatching_base_num) from trips_data_all.FVH_tripdata_external_table
+       # 4.  SELECT COUNT(*) FROM trips_data_all.FVH_tripdata_external_table_partitoned_clustered
+        WHERE CAST(pickup_datetime as DATE) >= '2019-01-01' and CAST(pickup_datetime as DATE) <='2019-03-31' 
+        and dispatching_base_num IN ('B00987', 'B02060', 'B02279')
+        
+        
