@@ -1,0 +1,36 @@
+1. pyspark.__version__
+    '3.0.3'
+    
+2. 208MB
+3. spark.sql (""" 
+          SELECT
+    count(1)
+    
+FROM fhvhv202102
+WHERE CAST(pickup_datetime AS DATE ) ='2021-02-15' """).show()
+      Answer 367170
+      
+4. spark.sql (""" 
+          SELECT
+            CAST(pickup_datetime AS DATE ) AS DAYS,
+          (unix_timestamp (dropoff_datetime)- unix_timestamp(pickup_datetime)) AS DURATION    
+FROM fhvhv202102
+ORDER BY  DURATION DESC
+""").show()
+
+Answer 2021-02-11 
+
+5. (2 + 2) / 4
+
+6. df_join= spark.sql("""
+SELECT 
+    Concat( borough , '/' , Zone) as Location
+    ,borough 
+    ,zone
+    ,count(zone) as most
+FROM
+    zonet as Z right outer  Join fhvhv202102 as F on ( Z.LocationID=F.PULocationID
+    and Z.LocationID=F.DOLocationID)
+GROUP BY 1,2,3
+order by 4 desc
+""").show()
